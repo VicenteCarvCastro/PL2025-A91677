@@ -1,4 +1,4 @@
-# # Resolução dos TPCs - Processamento de Linguagens 2025
+# Resolução dos TPCs - Processamento de Linguagens 2025
 
 <img src="foto_perfil.png" alt="Foto do Autor" width="150"/>
 
