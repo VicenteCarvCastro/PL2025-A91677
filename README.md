@@ -1,6 +1,6 @@
 # PL2025-A91677
 
-![Foto do Autor](foto_perfil.png)
+<img src="foto_perfil.png" alt="Foto do Autor" width="150"/>
 
 ## Autor
 Vicente de Carvalho Castro A91677
@@ -11,7 +11,7 @@ Este repositório contém as minhas propostas de resoluções dos TPCs propostos
 ## Estrutura do Repositório
 - `TPC1/` → Resolução do primeiro TPC  
 - `TPC2/` → Resolução do segundo TPC 
-...
+- ...
 - `TPC8/` → Resolução do último TPC 
 - `README.md` → Este ficheiro  
 
