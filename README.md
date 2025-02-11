@@ -27,8 +27,8 @@ git clone https://github.com/teu-username/nome-do-repo.git
 # Acede à pasta do TPC desejado:
 cd TPC1
 
-# Executa o código:
-python script.py
+# Executa o código com ficheiro auxiliar de entrada no stdin:
+cat ficheiro_aux.txt | python3 scrypt.py
 
 
 
