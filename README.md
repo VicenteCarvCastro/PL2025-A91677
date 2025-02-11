@@ -22,7 +22,11 @@ Este repositório contém as minhas propostas de resoluções dos TPCs propostos
 ## Como Executar
 ```bash
 # Clona este repositório:
-git clone https://github.com/teu-username/nome-do-repo.git
+
+#HTTPS
+git clone https://github.com/VicenteCarvCastro/PL2025-A91677.git 
+#SSH
+git clone git@github.com:VicenteCarvCastro/PL2025-A91677.git 
 
 # Acede à pasta do TPC desejado:
 cd TPC1
