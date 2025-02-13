@@ -8,13 +8,13 @@ for linha in sys.stdin:
         # Primeiro verifica os comandos antes de tentar processar números
         if word.lower() == 'off':
             ligado = False
-            continue
+            
         elif word.lower() == 'on':
             ligado = True
-            continue
+
         elif word == '=':
-            print("Resultado:", acc)
-            continue
+            print("Resultado da soma:", acc)
+
         
         # Apenas processa números se estiver ligado
         if ligado:
@@ -34,4 +34,4 @@ for linha in sys.stdin:
                     print("Acc:", acc)
 
                 # Avança para o próximo caractere não numérico
-                i += 1  # Para evitar loop infinito em caracteres não numéricos
+                i += 1  
