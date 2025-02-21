@@ -34,7 +34,7 @@ def add_tuplo_lista(lista, periodo):
 
 
 
-
+# ------- Main -------
 
 
 buffer = ""
