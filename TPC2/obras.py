@@ -33,24 +33,9 @@ def add_tuplo_lista(lista, periodo):
     lista.append(novo_tuplo)
 
 
-# Função para exibir o dicionário
-def print_dicionario(dicionario):
-    """
-    Exibe o conteúdo de um dicionário de forma organizada.
-    
-    Parâmetros:
-        dicionario (dict): O dicionário a ser exibido.
-    """
-    for chave, valores in dicionario.items():
-        print(f"{chave}:")
-        if isinstance(valores, (list, tuple)):  # Se o valor for uma lista ou tupla
-            for valor in valores:
-                print(f"  - {valor}")
-        elif isinstance(valores, dict):  # Se o valor for outro dicionário
-            for subchave, subvalor in valores.items():
-                print(f"  {subchave}: {subvalor}")
-        else:  # Se o valor for um único item
-            print(f"  {valores}")
+
+
+
 
 buffer = ""
 titulo = ""
@@ -64,7 +49,7 @@ dict_periodo = {}
 f = open("obras.csv")
 next(f)
 for linha in f:
-  buffer += linha
+  buffer += linha # "Itera" ate chegar a ultima linha de definicao da obra 
 
   ult_linha = re.match(r'.*(?=;\d{4})(.*)', linha) #group(0) -> descricao / group(1) -> resto
   inicio = re.match(r'^\w[^;]+', linha)
@@ -77,7 +62,7 @@ for linha in f:
   if ult_linha: # estou na ultima linha da obra no csv
     print("Titulo if ult_linha: ", titulo)
     
-    resto_linha = re.match(r'^;([^;]*);([^;]*);([^;]*);([^;]*);(O\d+)', ult_linha.group(1))
+    resto_linha = re.match(r'^;([^;]*);([^;]*);([^;]*);([^;]*);(O\d+)', ult_linha.group(1)) # para extrair resto dos parametros (3..7)
     if resto_linha:
 
       compositores.append(resto_linha.group(3))
@@ -86,7 +71,7 @@ for linha in f:
       add_tuplo_lista(lista_periodos, periodo)
 
       if periodo not in dict_periodo:
-        dict_periodo[periodo] = []  # Cria uma lista vazia para o período
+        dict_periodo[periodo] = []  
       dict_periodo[periodo].append(titulo)
 
       titulo = ""
@@ -106,21 +91,18 @@ for linha in f:
     add_tuplo_lista(lista_periodos, periodo)
     
     if periodo not in dict_periodo:
-      dict_periodo[periodo] = []  # Cria uma lista vazia para o período
+      dict_periodo[periodo] = []  
     dict_periodo[periodo].append(titulo2)
        
 
     buffer=""
 
 
-# Remover duplicados antes de ordenar
 compositores_unicos = list(set(compositores))
 
-# Ordenar a lista sem duplicados
 compositores_ordenados = sorted(compositores_unicos, key=extrair_sobrenome_nome)
 
 print("------ Lista Compositores --------- \n")
-# Exibir a lista ordenada sem duplicados
 for compositor in compositores_ordenados:
     print(compositor)
  
@@ -130,7 +112,6 @@ for (p,q) in lista_periodos:
    print(p + ":" + str(q))
 
 print("-------- Dicionario Periodos - Obras ---------- \n")
-# Exibe o dicionário de períodos
 for periodo, titulos in dict_periodo.items():
     print(f"{periodo}:")
     for titulo in titulos:
