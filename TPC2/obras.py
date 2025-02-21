@@ -1,0 +1,140 @@
+import sys
+import re
+import unicodedata
+
+# Função para extrair sobrenome e nome
+def extrair_sobrenome_nome(compositor):
+    if ", " in compositor:
+        # Formato "Sobrenome, Nome"
+        sobrenome, nome = compositor.split(", ", 1)
+        return (sobrenome, nome)
+    else:
+        # Formato "Nome Sobrenome"
+        partes = compositor.split()
+        sobrenome = partes[-1]  # Última palavra é o sobrenome
+        nome = " ".join(partes[:-1])  # Restante é o nome
+        return (sobrenome, nome)
+    
+
+def add_tuplo_lista(lista, periodo):
+  i = 0
+  while i < len(lista) and lista[i][0] != periodo:
+    i += 1
+    
+  # Se encontrou o período, atualiza o contador criando um novo tuplo
+  if i < len(lista):
+    #print("JA EXISTE ")
+    p, count = lista[i]
+    lista[i] = (p, count + 1)
+        
+  else:
+    print("Vou criar um novo tuplo com: ", periodo)
+    novo_tuplo = tuple([periodo,1])
+    lista.append(novo_tuplo)
+
+
+# Função para exibir o dicionário
+def print_dicionario(dicionario):
+    """
+    Exibe o conteúdo de um dicionário de forma organizada.
+    
+    Parâmetros:
+        dicionario (dict): O dicionário a ser exibido.
+    """
+    for chave, valores in dicionario.items():
+        print(f"{chave}:")
+        if isinstance(valores, (list, tuple)):  # Se o valor for uma lista ou tupla
+            for valor in valores:
+                print(f"  - {valor}")
+        elif isinstance(valores, dict):  # Se o valor for outro dicionário
+            for subchave, subvalor in valores.items():
+                print(f"  {subchave}: {subvalor}")
+        else:  # Se o valor for um único item
+            print(f"  {valores}")
+
+buffer = ""
+titulo = ""
+compositores = []
+lista_periodos = []
+
+dict_periodo = {}
+
+
+
+f = open("obras.csv")
+next(f)
+for linha in f:
+  buffer += linha
+
+  ult_linha = re.match(r'.*(?=;\d{4})(.*)', linha) #group(0) -> descricao / group(1) -> resto
+  inicio = re.match(r'^\w[^;]+', linha)
+  
+
+  if inicio:
+     titulo = inicio.group()
+     print("Titulo: ", titulo)
+
+  if ult_linha: # estou na ultima linha da obra no csv
+    print("Titulo if ult_linha: ", titulo)
+    
+    resto_linha = re.match(r'^;([^;]*);([^;]*);([^;]*);([^;]*);(O\d+)', ult_linha.group(1))
+    if resto_linha:
+
+      compositores.append(resto_linha.group(3))
+      
+      periodo = resto_linha.group(2)
+      add_tuplo_lista(lista_periodos, periodo)
+
+      if periodo not in dict_periodo:
+        dict_periodo[periodo] = []  # Cria uma lista vazia para o período
+      dict_periodo[periodo].append(titulo)
+
+      titulo = ""
+      buffer = ""
+
+
+    
+  inteira = re.match(r'^([^;]*);([^;]*);([^;]*);([^;]*);([^;]*);([^;]*);(O\d+)$', linha)
+  
+  if inteira:
+
+    #Adicionar compositor a lista
+    compositores.append(inteira.group(5))
+
+    periodo = inteira.group(4)
+    titulo2 = inteira.group(1)
+    add_tuplo_lista(lista_periodos, periodo)
+    
+    if periodo not in dict_periodo:
+      dict_periodo[periodo] = []  # Cria uma lista vazia para o período
+    dict_periodo[periodo].append(titulo2)
+       
+
+    buffer=""
+
+
+# Remover duplicados antes de ordenar
+compositores_unicos = list(set(compositores))
+
+# Ordenar a lista sem duplicados
+compositores_ordenados = sorted(compositores_unicos, key=extrair_sobrenome_nome)
+
+print("------ Lista Compositores --------- \n")
+# Exibir a lista ordenada sem duplicados
+for compositor in compositores_ordenados:
+    print(compositor)
+ 
+
+print("---------- Disribuicao Obras por Periodo --------- \n")
+for (p,q) in lista_periodos:
+   print(p + ":" + str(q))
+
+print("-------- Dicionario Periodos - Obras ---------- \n")
+# Exibe o dicionário de períodos
+for periodo, titulos in dict_periodo.items():
+    print(f"{periodo}:")
+    for titulo in titulos:
+        print(f"  - {titulo}")
+
+f.close()   
+
