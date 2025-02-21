@@ -19,6 +19,7 @@ desse período.
 Primeiramente, o ficheiro csv fornecido continha linhas com multiplas espaços ou e tabs, o que dificultava a leitura do ficheiro linha a linha. Para isso usei um buffer em forma de 'string' para me ajudar na iteração das linhas do ficheiro. Utilizei também expressões regulares para facilitar no processo de  manipulação das linhas. Dividi em 2 casos particulares: 
     
 Quando uma obra estava completamente definida numa só linha (chamei a expressão regular de `"inteira"` : `r'^([^;]*);([^;]*);([^;]*);([^;]*);([^;]*);([^;]*);(O\d+)$'`)
+
 E o caso da ultima linha de definição da obra que gerlalmente começava com tabs e continuação da linha anterior (chamei a expressão regular de `"ult_linha"` : `(r'.*(?=;\d{4})(.*)`)
 
 Outro aspeto importante que deu alguma dificuldade foi na divisão dos parâmetros usando `;`, devido ao 2ª parametro também haver a possibilidade de este caracter também estar presente na descrição. Para resolver isso, usei outra expressão regular (resto_linha: `r'^;([^;]*);([^;]*);([^;]*);([^;]*);(O\d+)` seguidamente `da ult_linha`). Ignorando assim o 2º parametro visto que não era necessário. Depois foi simplesmente guardar os parâmetros usando a funcionalidade `group()` do objeto Match das expressões regulares 
