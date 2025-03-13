@@ -27,5 +27,5 @@ Outro aspeto importante que deu alguma dificuldade foi na divisão dos parâmetr
 
 ## Resultados
 Os seguintes ficheiros foram gerados durante a realização deste TPC:  
-- [`obras.py`](somador.py) - Código desenvolvido  
+- [`obras.py`](obras.py) - Código desenvolvido  
 - [`obras.csv`](obras.csv) - Dataset fornecido

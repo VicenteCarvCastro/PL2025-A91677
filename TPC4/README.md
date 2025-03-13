@@ -1,4 +1,4 @@
-# TPC3 - Analisador Léxico
+# TPC4 - Analisador Léxico
 
 **Data:** 2025-03-06  
 **Autor:** Vicente de Carvalho Castro  

@@ -19,20 +19,6 @@ Este repositório contém as minhas propostas de resoluções dos TPCs propostos
 - **Linguagem Principal:** `Python`
 - **Editor Recomendado:** VS Code 
 
-## Como Executar
-```bash
-# Clona este repositório:
-
-#HTTPS
-git clone https://github.com/VicenteCarvCastro/PL2025-A91677.git 
-#SSH
-git clone git@github.com:VicenteCarvCastro/PL2025-A91677.git 
-
-# Acede à pasta do TPC desejado:
-cd TPC1
-
-# Executa o código com ficheiro auxiliar de entrada no stdin:
-cat ficheiro_aux.txt | python3 scrypt.py
 
 
 
