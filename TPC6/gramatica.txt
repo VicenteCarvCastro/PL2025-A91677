@@ -1,0 +1,18 @@
+T = {'(', ')', '+', '-', '*', '/', num}
+
+P = {
+    SExp -> Exp
+    
+    Exp -> Termo Exp2
+    Exp2 -> '+' Termo Exp2
+          | '-' Termo Exp2
+          | epsylon
+    
+    Termo -> Fator Termo2
+    Termo2 -> '*' Fator Termo2
+            | '/' fator Termo2
+            | epsylon
+    
+    Fator -> '(' Exp ')'
+            | num
+}

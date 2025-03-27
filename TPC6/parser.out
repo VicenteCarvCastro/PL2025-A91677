@@ -1,0 +1,306 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> SExp
+Rule 1     SExp -> Exp
+Rule 2     Exp -> Termo Exp2
+Rule 3     Exp2 -> + Termo Exp2
+Rule 4     Exp2 -> - Termo Exp2
+Rule 5     Exp2 -> <empty>
+Rule 6     Termo -> Fator Termo2
+Rule 7     Termo2 -> * Fator Termo2
+Rule 8     Termo2 -> / Fator Termo2
+Rule 9     Termo2 -> <empty>
+Rule 10    Fator -> ( Exp )
+Rule 11    Fator -> num
+
+Terminals, with rules where they appear
+
+(                    : 10
+)                    : 10
+*                    : 7
++                    : 3
+-                    : 4
+/                    : 8
+error                : 
+num                  : 11
+
+Nonterminals, with rules where they appear
+
+Exp                  : 1 10
+Exp2                 : 2 3 4
+Fator                : 6 7 8
+SExp                 : 0
+Termo                : 2 3 4
+Termo2               : 6 7 8
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . SExp
+    (1) SExp -> . Exp
+    (2) Exp -> . Termo Exp2
+    (6) Termo -> . Fator Termo2
+    (10) Fator -> . ( Exp )
+    (11) Fator -> . num
+
+    (               shift and go to state 5
+    num             shift and go to state 6
+
+    SExp                           shift and go to state 1
+    Exp                            shift and go to state 2
+    Termo                          shift and go to state 3
+    Fator                          shift and go to state 4
+
+state 1
+
+    (0) S' -> SExp .
+
+
+
+state 2
+
+    (1) SExp -> Exp .
+
+    $end            reduce using rule 1 (SExp -> Exp .)
+
+
+state 3
+
+    (2) Exp -> Termo . Exp2
+    (3) Exp2 -> . + Termo Exp2
+    (4) Exp2 -> . - Termo Exp2
+    (5) Exp2 -> .
+
+    +               shift and go to state 8
+    -               shift and go to state 9
+    $end            reduce using rule 5 (Exp2 -> .)
+    )               reduce using rule 5 (Exp2 -> .)
+
+    Exp2                           shift and go to state 7
+
+state 4
+
+    (6) Termo -> Fator . Termo2
+    (7) Termo2 -> . * Fator Termo2
+    (8) Termo2 -> . / Fator Termo2
+    (9) Termo2 -> .
+
+    *               shift and go to state 11
+    /               shift and go to state 12
+    +               reduce using rule 9 (Termo2 -> .)
+    -               reduce using rule 9 (Termo2 -> .)
+    $end            reduce using rule 9 (Termo2 -> .)
+    )               reduce using rule 9 (Termo2 -> .)
+
+    Termo2                         shift and go to state 10
+
+state 5
+
+    (10) Fator -> ( . Exp )
+    (2) Exp -> . Termo Exp2
+    (6) Termo -> . Fator Termo2
+    (10) Fator -> . ( Exp )
+    (11) Fator -> . num
+
+    (               shift and go to state 5
+    num             shift and go to state 6
+
+    Exp                            shift and go to state 13
+    Termo                          shift and go to state 3
+    Fator                          shift and go to state 4
+
+state 6
+
+    (11) Fator -> num .
+
+    *               reduce using rule 11 (Fator -> num .)
+    /               reduce using rule 11 (Fator -> num .)
+    +               reduce using rule 11 (Fator -> num .)
+    -               reduce using rule 11 (Fator -> num .)
+    $end            reduce using rule 11 (Fator -> num .)
+    )               reduce using rule 11 (Fator -> num .)
+
+
+state 7
+
+    (2) Exp -> Termo Exp2 .
+
+    $end            reduce using rule 2 (Exp -> Termo Exp2 .)
+    )               reduce using rule 2 (Exp -> Termo Exp2 .)
+
+
+state 8
+
+    (3) Exp2 -> + . Termo Exp2
+    (6) Termo -> . Fator Termo2
+    (10) Fator -> . ( Exp )
+    (11) Fator -> . num
+
+    (               shift and go to state 5
+    num             shift and go to state 6
+
+    Termo                          shift and go to state 14
+    Fator                          shift and go to state 4
+
+state 9
+
+    (4) Exp2 -> - . Termo Exp2
+    (6) Termo -> . Fator Termo2
+    (10) Fator -> . ( Exp )
+    (11) Fator -> . num
+
+    (               shift and go to state 5
+    num             shift and go to state 6
+
+    Termo                          shift and go to state 15
+    Fator                          shift and go to state 4
+
+state 10
+
+    (6) Termo -> Fator Termo2 .
+
+    +               reduce using rule 6 (Termo -> Fator Termo2 .)
+    -               reduce using rule 6 (Termo -> Fator Termo2 .)
+    $end            reduce using rule 6 (Termo -> Fator Termo2 .)
+    )               reduce using rule 6 (Termo -> Fator Termo2 .)
+
+
+state 11
+
+    (7) Termo2 -> * . Fator Termo2
+    (10) Fator -> . ( Exp )
+    (11) Fator -> . num
+
+    (               shift and go to state 5
+    num             shift and go to state 6
+
+    Fator                          shift and go to state 16
+
+state 12
+
+    (8) Termo2 -> / . Fator Termo2
+    (10) Fator -> . ( Exp )
+    (11) Fator -> . num
+
+    (               shift and go to state 5
+    num             shift and go to state 6
+
+    Fator                          shift and go to state 17
+
+state 13
+
+    (10) Fator -> ( Exp . )
+
+    )               shift and go to state 18
+
+
+state 14
+
+    (3) Exp2 -> + Termo . Exp2
+    (3) Exp2 -> . + Termo Exp2
+    (4) Exp2 -> . - Termo Exp2
+    (5) Exp2 -> .
+
+    +               shift and go to state 8
+    -               shift and go to state 9
+    $end            reduce using rule 5 (Exp2 -> .)
+    )               reduce using rule 5 (Exp2 -> .)
+
+    Exp2                           shift and go to state 19
+
+state 15
+
+    (4) Exp2 -> - Termo . Exp2
+    (3) Exp2 -> . + Termo Exp2
+    (4) Exp2 -> . - Termo Exp2
+    (5) Exp2 -> .
+
+    +               shift and go to state 8
+    -               shift and go to state 9
+    $end            reduce using rule 5 (Exp2 -> .)
+    )               reduce using rule 5 (Exp2 -> .)
+
+    Exp2                           shift and go to state 20
+
+state 16
+
+    (7) Termo2 -> * Fator . Termo2
+    (7) Termo2 -> . * Fator Termo2
+    (8) Termo2 -> . / Fator Termo2
+    (9) Termo2 -> .
+
+    *               shift and go to state 11
+    /               shift and go to state 12
+    +               reduce using rule 9 (Termo2 -> .)
+    -               reduce using rule 9 (Termo2 -> .)
+    $end            reduce using rule 9 (Termo2 -> .)
+    )               reduce using rule 9 (Termo2 -> .)
+
+    Termo2                         shift and go to state 21
+
+state 17
+
+    (8) Termo2 -> / Fator . Termo2
+    (7) Termo2 -> . * Fator Termo2
+    (8) Termo2 -> . / Fator Termo2
+    (9) Termo2 -> .
+
+    *               shift and go to state 11
+    /               shift and go to state 12
+    +               reduce using rule 9 (Termo2 -> .)
+    -               reduce using rule 9 (Termo2 -> .)
+    $end            reduce using rule 9 (Termo2 -> .)
+    )               reduce using rule 9 (Termo2 -> .)
+
+    Termo2                         shift and go to state 22
+
+state 18
+
+    (10) Fator -> ( Exp ) .
+
+    *               reduce using rule 10 (Fator -> ( Exp ) .)
+    /               reduce using rule 10 (Fator -> ( Exp ) .)
+    +               reduce using rule 10 (Fator -> ( Exp ) .)
+    -               reduce using rule 10 (Fator -> ( Exp ) .)
+    $end            reduce using rule 10 (Fator -> ( Exp ) .)
+    )               reduce using rule 10 (Fator -> ( Exp ) .)
+
+
+state 19
+
+    (3) Exp2 -> + Termo Exp2 .
+
+    $end            reduce using rule 3 (Exp2 -> + Termo Exp2 .)
+    )               reduce using rule 3 (Exp2 -> + Termo Exp2 .)
+
+
+state 20
+
+    (4) Exp2 -> - Termo Exp2 .
+
+    $end            reduce using rule 4 (Exp2 -> - Termo Exp2 .)
+    )               reduce using rule 4 (Exp2 -> - Termo Exp2 .)
+
+
+state 21
+
+    (7) Termo2 -> * Fator Termo2 .
+
+    +               reduce using rule 7 (Termo2 -> * Fator Termo2 .)
+    -               reduce using rule 7 (Termo2 -> * Fator Termo2 .)
+    $end            reduce using rule 7 (Termo2 -> * Fator Termo2 .)
+    )               reduce using rule 7 (Termo2 -> * Fator Termo2 .)
+
+
+state 22
+
+    (8) Termo2 -> / Fator Termo2 .
+
+    +               reduce using rule 8 (Termo2 -> / Fator Termo2 .)
+    -               reduce using rule 8 (Termo2 -> / Fator Termo2 .)
+    $end            reduce using rule 8 (Termo2 -> / Fator Termo2 .)
+    )               reduce using rule 8 (Termo2 -> / Fator Termo2 .)
+
