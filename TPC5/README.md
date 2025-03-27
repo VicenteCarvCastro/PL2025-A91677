@@ -39,6 +39,9 @@ Em algumas funcionalidades, nomeadamente "MOEDA" e "SELECIONAR", os comandos nec
 2. Para o comando "SELECIONAR", o código do produto é capturado como o próximo token após o comando "SELECIONAR". Esse código é então utilizado para localizar o produto no stock e verificar se o saldo é suficiente para completar a compra.
 
 ## Resultados
+<img src="resultado.png"  width="150"/>
+
+
 Os seguintes ficheiros foram gerados durante a realização deste TPC:  
 - [`machine.py`](machine.py) - Código desenvolvido  
 - [`stock.json`](stock.json) - Ficheiro com o stock guardado
