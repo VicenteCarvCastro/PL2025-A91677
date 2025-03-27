@@ -14,7 +14,7 @@ Para este trabalho foi criado um parser LL(1) recursivo descendente que reconhec
 
 
 # Estrutura:
-- Analisador Léxico
+## Analisador Léxico
 O analisador léxico é responsável por converter a sequência de caracteres da entrada em tokens, que serão processados pelo analisador sintático.
 Estes estão divididos entre `literals = ['(', ')', '*', '+', '-', '/']`, que aparecem diretamente na entrada, não precisam de regras específicas para reconhecê-los.
 E os `tokens = ['num']`, que precisam de regras especiais para serem reconhecidos visto que podem ser compostos por mais que um caracter. Neste caso são os números inseridos pelo utilizador, que são definidos como sequência de dígitos.
@@ -23,7 +23,7 @@ O analisador léxico vai reconhecer os tokens através da expressão regular `r'
 
 
 
-- Analisador Sintático
+## Analisador Sintático
 O analisador sintático recebe a sequência de tokens produzida pelo analisador léxico e verifica se ela segue as regras da gramática definida e, neste caso, efetuar os cálculos e apresentar o resultado.
 Para este processo é necessário ter bem definidas as funções de todas as progressões presentes na gramática. 
 
@@ -32,10 +32,9 @@ De notar que esta estrutura garante a precedência correta das operações:
 1. Multiplicação e divisão são resolvidas antes de soma e subtração.
 2. Expressões entre parênteses são resolvidas primeiro.
 
-- Dificuldades
+# Dificuldades
 
 1. Para obedecer ao critério de uma gramática LL1 e esta ser determinística e não haver ambiguidade, criaram-se as "Expressões2" para resolver este problema.
-
 Antes tinhamos a progressão `Exp` definida da seguinte maneira, o parser ao encontrar '+' ou '-', o analisador teria ambiguidade, não sabe se deve continuar a expandir "Exp" ou parar.
 
 > Exp → Termo | Exp '+' Termo | Exp '-' Termo
