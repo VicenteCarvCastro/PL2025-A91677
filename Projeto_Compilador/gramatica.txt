@@ -1,0 +1,131 @@
+gramatica -> programa '.'
+
+programa  -> cabecalho corpo
+
+cabecalho ->  titulo declaracao_funcoes declaracoes_variaveis 
+
+titulo    -> PROGRAM ID ';'
+
+declaracao_funcoes -> FUNCTION funcoes 
+                    | ε
+
+funcoes -> funcao 
+         | funcao funcoes 
+
+funcao -> ID '(' parametros ')' ':' tipo ';' bloco_funcao ';'
+
+
+
+parametros -> lista_id ':' tipo                                
+            | lista_id ':' tipo ';' parametros
+            | ε
+
+
+parametros -> lista_parametros
+            | ε
+
+lista_parametros -> lista_id ':' tipo
+                  | lista_id ':' tipo ';' lista_parametros
+
+
+bloco_funcao -> declaracoes_variaveis corpo
+
+
+declaracoes_variaveis -> VAR declaracoes
+                      | ε
+
+declaracoes      -> declaracao
+                 | declaracao declaracoes 
+
+declaracao       -> lista_id ':' tipo ';'
+
+lista_id         -> ID
+                 | lista_id ',' ID
+
+tipo             -> INTEGER
+                 | REAL
+                 | BOOLEAN
+                 | CHAR
+                 | ARRAY '[' NUMBER RANGE NUMBER ']' OF tipo
+
+corpo            -> BEGIN lista_instrucoes END
+
+lista_instrucoes -> instrucao
+                 | lista_instrucoes ';' instrucao
+                 // Acrescentava vazio (1º opcao)
+
+instrucao        -> atribuicao
+                 | leitura
+                 | escrita
+                 | if_statement
+                 | while_statement
+                 | for_statement
+                 | bloco
+                 | ε     
+
+bloco            ->  BEGIN lista_instrucoes END
+
+
+atribuicao       -> ID ASSIGN expressao                             
+                 | ID '[' expressao ']' ASSIGN expressao
+
+leitura          -> READ '(' expressao_simples ')'   
+                 | READLN '(' expressao_simples ')'  
+
+escrita          -> WRITE '(' lista_expressao ')'
+                 |  WRITELN '(' lista_expressao ')'
+
+if               -> IF expressao THEN instrucao ELSE instrucao
+                 |  IF expressao THEN instrucao
+
+while            -> WHILE expressao DO instrucao
+
+for              -> FOR ID ASSIGN expressao TO expressao DO instrucao
+                  | FOR ID ASSIGN expressao DOWNTO expressao DO instrucao
+
+
+lista_expressao  -> expressao
+                 | lista_expressao ',' expressao
+
+
+expressao -> expressao_logica
+
+expressao_logica -> expressao_logica OR expressao_relacional
+                  | expressao_logica AND expressao_relacional
+                  | expressao_relacional
+
+expressao_relacional -> expressao_aritmetica operador_relacional expressao_aritmetica
+                      | expressao_aritmetica
+
+
+operador_relacional -> '=' | '<>' | '<' | '<=' | '>' | '>='
+
+expressao_aritmetica -> expressao_aritmetica '+' termo
+                      | expressao_aritmetica '-' termo
+                      | termo
+
+termo -> termo '*' fator
+       | termo '/' fator
+       | termo DIV fator
+       | termo MOD fator
+       | fator
+
+
+fator            -> NUMBER                      
+                 | STRING_LITERAL
+                 | ID                          
+                 | ID '[' expressao ']'        
+                 | ID '(' expressao ')'        
+                 | TRUE
+                 | FALSE
+                 | '(' expressao ')'
+                 | NOT fator
+                 | '-' fator
+
+
+Const -> INT | REAL | STRING
+
+Var -> ID
+    | ID '[' expressao ']' 
+
+
